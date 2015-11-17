@@ -1,4 +1,4 @@
-== DaVinci Shopping Cart
+== Shift Scheduler
 
 This is a Ruby on Rails application I developed as part of the
 {Building the Toolbelt of a Junior Ruby on Rails Engineer}[http://www.davincicoders.com/rubyonrailscourse/]
