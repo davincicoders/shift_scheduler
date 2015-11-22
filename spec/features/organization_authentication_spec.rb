@@ -22,16 +22,23 @@ feature 'Organization Authentication' do
 
     expect(page).to have_text("Thank you for signing up!")
     expect(page).to have_text("Signed into TiredDevs as admin@test.com")
+  end
 
-    # And I click 'Logout'
-    #
-    # And I should see 'Bob Smith has successfully logged out'
-    #
-    # And I click 'Login'
-    #
-    # And I fill in email with bob@smith.com
-    # And I fill in Password with password
-    #
-    # I should see 'Welcome back Bob Smith'
+  scenario 'allows existing organizations to log in' do
+    organization = FactoryGirl.create(:organization)
+
+    visit '/'
+
+    expect(page).to have_link('Login')
+
+    click_link 'Login'
+
+    fill_in 'Email', with: organization.email
+    fill_in 'Password', with: organization.password
+
+    click_button 'Login'
+
+    expect(page).to have_content("Welcome back #{organization.email}")
+    expect(page).to have_text("Signed into #{organization.name} as #{organization.email}")
   end
 end
