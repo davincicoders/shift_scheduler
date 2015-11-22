@@ -41,4 +41,21 @@ feature 'Organization Authentication' do
     expect(page).to have_content("Welcome back #{organization.email}")
     expect(page).to have_text("Signed into #{organization.name} as #{organization.email}")
   end
+
+  scenario 'does not allow existing organizations to login with an invalid password' do
+    organization = FactoryGirl.create(:organization, password: 'password')
+
+    visit '/'
+
+    expect(page).to have_link('Login')
+
+    click_link 'Login'
+
+    fill_in 'Email', with: organization.email
+    fill_in 'Password', with: 'invalidpassword'
+
+    click_button 'Login'
+
+    expect(page).to have_content('Invalid email or password')
+  end
 end
