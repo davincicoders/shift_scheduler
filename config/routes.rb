@@ -8,4 +8,5 @@ Rails.application.routes.draw do
       path_names: { new: 'signup' }
 
   get 'login' => 'sessions#login'
+  post 'login' => 'sessions#create'
 end
