@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
-  resource :organization,
+  resource :organizations,
       only: [:new, :create],
       path_names: { new: 'signup' }
 end
