@@ -1,1 +1,5 @@
-<%= link_to 'Signup', new_organizations_path, class: 'btn btn-primary' %>
+<% if current_organization %>
+    Signed in to <%= current_organization.name %> as <%= current_organization.email %>
+<% else %>
+    <%= link_to 'Signup', new_organizations_path, class: 'btn btn-primary' %>
+<% end %>

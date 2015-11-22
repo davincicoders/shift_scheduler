@@ -7,6 +7,7 @@ class OrganizationsController < ApplicationController
     @organization = Organization.new(organization_params)
 
     if @organization.save
+      session[:id] = @organization.id
       redirect_to employees_path,
         notice: "Thank you for signing up!"
     else
