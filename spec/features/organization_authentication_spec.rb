@@ -58,4 +58,26 @@ feature 'Organization Authentication' do
 
     expect(page).to have_content('Invalid email or password')
   end
+
+  scenario 'allows existing organizations to log out' do
+    organization = FactoryGirl.create(:organization)
+
+    visit login_path
+
+    fill_in 'Email', with: organization.email
+    fill_in 'Password', with: organization.password
+
+    click_button 'Login'
+
+    expect(page).to have_content("Welcome back #{organization.email}")
+    expect(page).to have_text("Signed into #{organization.name} as #{organization.email}")
+
+    expect(page).to have_link('Logout')
+
+    click_link 'Logout'
+
+    expect(page).to have_content("#{organization.email} has been logged out")
+    expect(page).to_not have_content("Welcome back #{organization.email}")
+    expect(page).to_not have_text("Signed into #{organization.name} as #{organization.email}")
+  end
 end
