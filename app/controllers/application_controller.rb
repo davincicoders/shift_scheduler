@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_organization
 
-  prviate
+  private
 
   def current_organization
     @organization ||= Organization.find(session[:id]) if session[:id]
